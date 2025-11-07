@@ -21,6 +21,10 @@ body {
     height: 1152px;
 }
 
+.flipbook .shadow{
+    box-shadow: 0 6px 20px #000000;
+}
+
 .flipbook .hard {
     background: #242424 !important;
     color: #fff;
@@ -28,12 +32,6 @@ body {
     border: none; 
 }
 
-.flipbook .hard small{
-	font-style: italic;
-	font-weight: lighter;
-	opacity: 0.7;
-	font-size: 14px;
-}
 
 .flipbook .page {
     background: white;
@@ -41,8 +39,6 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-    gap: 0;
-    border: 1px solid rgba(0, 0, 0, 0.11);
 }
 
 .page img{
@@ -52,7 +48,3 @@ body {
 	margin: 0;
 }
 
-.flipbook .page small{
-	font-size: 14px;
-    margin-bottom: 10px;
-}
