@@ -16,7 +16,7 @@ body {
   background: #2C5D7D;
 }
 
-/* Desktop and large screens */
+/* ----- Desktop and large screens ----- */
 @media screen and (min-width: 768px) {
   body {
     transform: none;
@@ -24,55 +24,78 @@ body {
 
   .flipbook {
     transform: none;
-    transform-origin: center;
-    width: 100%;
-    height: auto;
   }
 }
 
-
-/* Mobile portrait mode — rotate + center + fit */
+/* ----- Mobile portrait (rotate + scale + center) ----- */
 @media screen and (max-width: 767px) and (orientation: portrait) {
+  html,
   body {
-    transform: rotate(90deg) translateY(-100%);
-    transform-origin: top left;
-    width: 100vh;
-    height: 100vw;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: #2C5D7D;
+  }
+
+  body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    background: #2C5D7D;
-    position: absolute;
+    transform: rotate(90deg) translateY(-100%);
+    transform-origin: top left;
+    position: fixed;
     top: 0;
     left: 0;
   }
 
   .flipbook {
-    transform-origin: center center;
     width: 3457px;
     height: 1152px;
-    /* Perfectly scale to fit both height and width */
-    transform: scale(calc(min(100vw / 1152, 100vh / 3457)));
+    transform-origin: center center;
+    /* Scale to fit within rotated viewport */
+    transform: scale(
+      calc(
+        min(
+          (100vw / 1152),
+          (100vh / 3457)
+        )
+      )
+    );
   }
 }
 
-/* Mobile landscape mode — center + fit */
+/* ----- Mobile landscape (fit without rotation) ----- */
 @media screen and (max-width: 767px) and (orientation: landscape) {
+  html,
   body {
-    transform: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
     overflow: hidden;
     background: #2C5D7D;
   }
 
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .flipbook {
-    transform-origin: center center;
     width: 3457px;
     height: 1152px;
-    transform: scale(calc(min(100vw / 3457, 100vh / 1152)));
+    transform-origin: center center;
+    transform: scale(
+      calc(
+        min(
+          (100vw / 3457),
+          (100vh / 1152)
+        )
+      )
+    );
   }
 }
 
