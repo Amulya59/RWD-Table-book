@@ -91,6 +91,22 @@
     <div class="hard"><img src="B Cover Sheet.jpg" alt="Cover Sheet" /></div>
   </div>
 
+  <div id="rotate-msg" style="display:none; color:white; position:fixed; inset:0; background:#2C5D7D; justify-content:center; align-items:center; font-size:1.2rem; z-index:999;">
+  Please rotate your device 📱
+</div>
+<script>
+  function checkOrientation() {
+    if (window.innerHeight > window.innerWidth) {
+      document.getElementById('rotate-msg').style.display = 'flex';
+    } else {
+      document.getElementById('rotate-msg').style.display = 'none';
+    }
+  }
+  window.addEventListener('resize', checkOrientation);
+  checkOrientation();
+</script>
+
+
   <script src="jquery.js"></script>
   <script src="turn.js"></script>
   <script>
