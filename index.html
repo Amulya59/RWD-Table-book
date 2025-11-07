@@ -1,119 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RWD Table Book</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flipbook - Auto Rotate</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-  <div class="stage">
-    <div class="flipbook">
-      <div class="hard"><img src="1 Cover Sheet.jpg" alt="Cover Sheet" /></div>
-      <div class="hard"></div>
-      <div><img src="2 Cover Page.jpg" alt="Cover Page" /></div>
-      <div><img src="whoRwe.png" alt="" /></div>
-      <div><img src="content.png" alt="" /></div>
-      <div><img src="founderL.png" alt="" /></div>
-      <div><img src="founderR.png" alt="" /></div>
-      <div><img src="pillar l.png" alt="" /></div>
-      <div><img src="pillar r.png" alt="" /></div>
-      <div><img src="TechL.png" alt="" /></div>
-      <div><img src="TechR.png" alt="" /></div>
-      <div><img src="res11L.png" alt="" /></div>
-      <div><img src="res12R.png" alt="" /></div>
-      <div><img src="res13L.png" alt="" /></div>
-      <div><img src="res14R.png" alt="" /></div>
-      <div><img src="res21L.png" alt="" /></div>
-      <div><img src="res22R.png" alt="" /></div>
-      <div><img src="res23L.png" alt="" /></div>
-      <div><img src="res24R.png" alt="" /></div>
-      <div><img src="res31L.png" alt="" /></div>
-      <div><img src="res32R.png" alt="" /></div>
-      <div><img src="res33L.png" alt="" /></div>
-      <div><img src="res34R.png" alt="" /></div>
-      <div><img src="awardL.png" alt="" /></div>
-      <div><img src="awardR.png" alt="" /></div>
-      <div><img src="2 Cover Page.jpg" alt="" /></div>
-      <div class="hard"></div>
-      <div class="hard"><img src="B Cover Sheet.jpg" alt="Back Cover" /></div>
-    </div>
+  <div id="rotate-msg">Please rotate your device 📱</div>
 
-    <div id="rotate-msg">Please rotate your device 📱</div>
+  <div class="flipbook">
+    <!-- keep your original pages here -->
+    <div class="hard"><img src="1 Cover Sheet.jpg" alt="Cover" /></div>
+    <div class="hard"></div>
+    <div><img src="2 Cover Page.jpg" alt="Page 1" /></div>
+    <div><img src="whoRwe.png" alt="" /></div>
+        <div><img src="content.png" alt="" /></div>
+        <div><img src="founderL.png" alt="" /></div>
+        <div><img src="founderR.png" alt="" /></div>
+        <div><img src="pillar l.png" alt="" /></div>
+        <div><img src="pillar r.png" alt="" /></div>
+        <div><img src="TechL.png" alt="" /></div>
+        <div><img src="TechR.png" alt="" /></div>
+        <div><img src="res11L.png" alt="" /></div>
+        <div><img src="res12R.png" alt="" /></div>
+        <div><img src="res13L.png" alt="" /></div>
+        <div><img src="res14R.png" alt="" /></div>
+        <div><img src="res21L.png" alt="" /></div>
+        <div><img src="res22R.png" alt="" /></div>
+        <div><img src="res23L.png" alt="" /></div>
+        <div><img src="res24R.png" alt="" /></div>
+        <div><img src="res31L.png" alt="" /></div>
+        <div><img src="res32R.png" alt="" /></div>
+        <div><img src="res33L.png" alt="" /></div>
+        <div><img src="res34R.png" alt="" /></div>
+        <div><img src="awardL.png" alt="" /></div>
+        <div><img src="awardR.png" alt="" /></div>
+        <div><img src="2 Cover Page.jpg" alt="" /></div>
+    <div class="hard"></div>
+    <div class="hard"><img src="B Cover Sheet.jpg" alt="Back Cover" /></div>
   </div>
 
   <script src="jquery.js"></script>
   <script src="turn.js"></script>
   <script>
-    (function () {
-      const BOOK_W = 3457;
-      const BOOK_H = 1152;
-      const flip = document.querySelector('.flipbook');
-      const rotateMsg = document.getElementById('rotate-msg');
+    $('.flipbook').turn({
+      width: 3457,
+      height: 1152,
+      autoCenter: true
+    });
 
-      function fitAndTransform() {
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-        let scale, transformStr;
+    function checkOrientation() {
+      const msg = document.getElementById('rotate-msg');
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
 
-        if (vh > vw) {
-          scale = Math.min(vw / BOOK_H, vh / BOOK_W);
-          scale = Math.min(scale, 1);
-          transformStr = `translate(-50%, -50%) rotate(-90deg) scale(${scale})`;
-          rotateMsg.style.display = 'none';
-        } else {
-          scale = Math.min(vw / BOOK_W, vh / BOOK_H);
-          scale = Math.min(scale, 1);
-          transformStr = `translate(-50%, -50%) scale(${scale})`;
-          rotateMsg.style.display = 'none';
-        }
-
-        flip.style.transform = transformStr;
+      if (vh > vw) {
+        // Portrait mode (phone upright)
+        msg.style.display = 'flex';
+        document.body.style.transform = 'rotate(90deg) translateY(-100%)';
+        document.body.style.transformOrigin = 'top left';
+        document.body.style.width = vh + 'px';
+        document.body.style.height = vw + 'px';
+        document.body.style.overflow = 'hidden';
+        document.body.style.display = 'flex';
+        document.body.style.justifyContent = 'center';
+        document.body.style.alignItems = 'center';
+      } else {
+        // Landscape mode
+        msg.style.display = 'none';
+        document.body.style.transform = 'none';
+        document.body.style.width = '100vw';
+        document.body.style.height = '100vh';
       }
+    }
 
-      function initTurn() {
-        if (typeof jQuery !== 'undefined' && typeof jQuery.fn.turn === 'function') {
-          try { $('.flipbook').turn('destroy'); } catch (e) { }
-          $('.flipbook').turn({
-            width: BOOK_W * 0.5,
-            height: BOOK_H * 0.5,
-            autoCenter: true
-          });
-        }
-      }
-
-      function waitImagesThenInit() {
-        const imgs = Array.from(document.querySelectorAll('.flipbook img'));
-        if (imgs.length === 0) { fitAndTransform(); initTurn(); return; }
-
-        let loaded = 0;
-        imgs.forEach(img => {
-          if (img.complete) loaded++;
-          else img.addEventListener('load', () => {
-            loaded++;
-            if (loaded === imgs.length) {
-              fitAndTransform();
-              initTurn();
-            }
-          });
-        });
-
-        if (loaded === imgs.length) {
-          fitAndTransform();
-          initTurn();
-        }
-      }
-
-      window.addEventListener('load', () => {
-        waitImagesThenInit();
-        setTimeout(fitAndTransform, 200);
-      });
-
-      window.addEventListener('resize', fitAndTransform);
-      window.addEventListener('orientationchange', () => setTimeout(fitAndTransform, 150));
-    })();
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+    checkOrientation();
   </script>
 </body>
 </html>
