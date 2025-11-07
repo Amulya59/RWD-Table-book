@@ -30,7 +30,8 @@ body {
   }
 }
 
-/* Mobile portrait mode — rotate + perfectly center */
+
+/* Mobile portrait mode — rotate + center + fit */
 @media screen and (max-width: 767px) and (orientation: portrait) {
   body {
     transform: rotate(90deg) translateY(-100%);
@@ -48,15 +49,15 @@ body {
   }
 
   .flipbook {
-    transform-origin: center;
+    transform-origin: center center;
     width: 3457px;
     height: 1152px;
-    /* Dynamically fit entire screen */
-    scale: calc(min(100vh / 3457, 100vw / 1152));
+    /* Perfectly scale to fit both height and width */
+    transform: scale(calc(min(100vw / 1152, 100vh / 3457)));
   }
 }
 
-/* Mobile landscape mode — fit to screen */
+/* Mobile landscape mode — center + fit */
 @media screen and (max-width: 767px) and (orientation: landscape) {
   body {
     transform: none;
@@ -68,10 +69,10 @@ body {
   }
 
   .flipbook {
-    transform-origin: center;
+    transform-origin: center center;
     width: 3457px;
     height: 1152px;
-    scale: calc(min(100vw / 3457, 100vh / 1152));
+    transform: scale(calc(min(100vw / 3457, 100vh / 1152)));
   }
 }
 
